@@ -53,47 +53,50 @@ class _NewWorkoutState extends State<NewWorkout> {
       appBar: AppBar(
         title: const Text('Nytt pass'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            WorkoutInsert(workoutName: "Squats", pastValues: squatsPastValues),
-            const SizedBox(height: paddingBetweenItems),
-            WorkoutInsert(
-                workoutName:
-                    schedule ? "Bench press" : "Barbell military press",
-                pastValues: schedule
-                    ? benchPressPastValues
-                    : barbellMilitaryPastValues),
-            const SizedBox(height: paddingBetweenItems),
-            WorkoutInsert(
-                workoutName: schedule ? "Barbell bent over row" : "Deadlift",
-                pastValues:
-                    schedule ? barbellBentPastValues : deadliftPastValues),
-            const SizedBox(height: paddingBetweenItems),
-            WorkoutInsert(
-                workoutName: schedule ? "Triceps dips" : "Chin up",
-                weights: false,
-                pastValues: schedule ? tricepsValues : chinPastValues),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  updateSchedule();
-                });
-              },
-              child: const Text('Byt schema'),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              WorkoutInsert(
+                  workoutName: "Squats", pastValues: squatsPastValues),
+              const SizedBox(height: paddingBetweenItems),
+              WorkoutInsert(
+                  workoutName:
+                      schedule ? "Bench press" : "Barbell military press",
+                  pastValues: schedule
+                      ? benchPressPastValues
+                      : barbellMilitaryPastValues),
+              const SizedBox(height: paddingBetweenItems),
+              WorkoutInsert(
+                  workoutName: schedule ? "Barbell bent over row" : "Deadlift",
+                  pastValues:
+                      schedule ? barbellBentPastValues : deadliftPastValues),
+              const SizedBox(height: paddingBetweenItems),
+              WorkoutInsert(
+                  workoutName: schedule ? "Triceps dips" : "Chin up",
+                  weights: false,
+                  pastValues: schedule ? tricepsValues : chinPastValues),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    updateSchedule();
+                  });
+                },
+                child: const Text('Byt schema'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-Future<int> fetchWeightData(String workoutName) async {
+Future<double> fetchWeightData(String workoutName) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  int? value = prefs.getInt(workoutName);
+  double? value = prefs.getDouble(workoutName);
   return value ?? 0;
 }
 

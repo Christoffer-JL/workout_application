@@ -68,5 +68,5 @@ class _WorkoutInsertState extends State<WorkoutInsert> {
 void saveWeightData(String workoutName, String weight) async {
   print(workoutName);
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setInt(workoutName, int.tryParse(weight) ?? 0);
+  prefs.setDouble(workoutName, double.tryParse(weight) ?? 0);
 }
